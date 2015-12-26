@@ -3,6 +3,7 @@ $ = jQuery = require('jquery');
 var React = require('react');
 var Home = require('./components/homePage');
 var Trip = require('./components/dashboard/tripPage');
+var Landing = require('./components/dashboard/landingPage');
 var Header = require('./components/common/header');
 
 (function(win) {
@@ -13,7 +14,8 @@ var Header = require('./components/common/header');
 
 			switch(this.props.route) {
 				case 'trip': Child = Trip; break;
-				default: Child = Home;
+				case 'landing': Child = Landing; break;
+				default: Child = Landing;
 			}
 
 			return (
