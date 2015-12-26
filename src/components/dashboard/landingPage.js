@@ -20,7 +20,7 @@ var Landing = React.createClass({
 	render: function() {
 		return (
 			<div>
-				<h1>Landings</h1>
+				<h1>Explore the Freedom</h1>
 				<LandingList landings={this.state.landings} />
 			</div>
 		);

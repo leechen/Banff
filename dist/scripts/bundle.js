@@ -40674,6 +40674,62 @@ module.exports = {
 };
 
 },{}],162:[function(require,module,exports){
+"use strict";
+
+//This file is mocking a web API by hitting hard coded data.
+var trips = require('./tripData').trips;
+var _ = require('lodash');
+
+//This would be performed on the server in a real app. Just stubbing in.
+var _generateId = function(trip) {
+	return trip.name.toLowerCase();
+};
+
+var _clone = function(item) {
+	return JSON.parse(JSON.stringify(item)); //return cloned copy so that the item is passed by value instead of by reference
+};
+
+var TripApi = {
+	getAllTrips: function() {
+		return _clone(trips); 
+	},
+
+	getTripById: function(id) {
+		var trip = _.find(trips, {id: id});
+		return _clone(trip);
+	},
+};
+
+module.exports = TripApi;
+
+},{"./tripData":163,"lodash":29}],163:[function(require,module,exports){
+module.exports = {
+	trips: 
+	[
+		{
+			id: '1', 
+			name: 'Utah Canyons',
+			length: 10
+		},	
+		{
+			id: '2', 
+			name: 'Wild Disney',
+			length: 10
+		},	
+		{
+			id: '3', 
+			name: 'Desert Sun',
+			length: 12
+		},
+        {
+            id: '4',
+            name: 'Skiing in NW Pacific',
+            length: 7
+        }
+	]
+};
+
+},{}],164:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -40688,8 +40744,7 @@ var Header = React.createClass({displayName: "Header",
               ), 
               React.createElement("ul", {className: "nav navbar-nav"}, 
                 React.createElement("li", null, React.createElement("a", {href: "/"}, "Home")), 
-                React.createElement("li", null, React.createElement("a", {href: "/#trip"}, "Trip")), 
-                React.createElement("li", null, React.createElement("a", {href: "/#landing"}, "Landing"))
+                React.createElement("li", null, React.createElement("a", {href: "/#trip"}, "Trip"))
               )
           )
         )
@@ -40699,7 +40754,7 @@ var Header = React.createClass({displayName: "Header",
 
 module.exports = Header;
 
-},{"react":159}],163:[function(require,module,exports){
+},{"react":159}],165:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -40737,7 +40792,7 @@ var LandingList = React.createClass({displayName: "LandingList",
 
 module.exports = LandingList;
 
-},{"react":159}],164:[function(require,module,exports){
+},{"react":159}],166:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -40760,7 +40815,7 @@ var Landing = React.createClass({displayName: "Landing",
 	render: function() {
 		return (
 			React.createElement("div", null, 
-				React.createElement("h1", null, "Landings"), 
+				React.createElement("h1", null, "Explore the Freedom"), 
 				React.createElement(LandingList, {landings: this.state.landings})
 			)
 		);
@@ -40769,22 +40824,37 @@ var Landing = React.createClass({displayName: "Landing",
 
 module.exports = Landing;
 
-},{"../../api/landingApi":160,"./landingList":163,"react":159}],165:[function(require,module,exports){
-'use strict';
+},{"../../api/landingApi":160,"./landingList":165,"react":159}],167:[function(require,module,exports){
+"use strict";
 
 var React = require('react');
 
-var Trip = React.createClass({displayName: "Trip",
-	render: function () {
+var TripList = React.createClass({displayName: "TripList",
+	propTypes: {
+		trips: React.PropTypes.array.isRequired
+	},
+
+	render: function() {
+		var createTripRow = function(trip) {
+			return (
+				React.createElement("tr", {key: trip.id}, 
+					React.createElement("td", null, React.createElement("a", {href: "/#trips/" + trip.id}, trip.id)), 
+					React.createElement("td", null, trip.name), 
+					React.createElement("td", null, trip.length)
+				)
+			);
+		};
+
 		return (
 			React.createElement("div", null, 
-				React.createElement("h1", null, "Trips"), 
-				React.createElement("p", null, 
-					"Hot trips:", 
-					React.createElement("ul", null, 
-						React.createElement("li", null, "US West Coast"), 
-						React.createElement("li", null, "Grand Canyon"), 
-						React.createElement("li", null, "Florida")
+				React.createElement("table", {className: "table"}, 
+					React.createElement("thead", null, 
+						React.createElement("th", null, "Id"), 
+						React.createElement("th", null, "Name"), 
+						React.createElement("th", null, "Length")
+					), 
+					React.createElement("tbody", null, 
+						this.props.trips.map(createTripRow, this)
 					)
 				)
 			)
@@ -40792,31 +40862,44 @@ var Trip = React.createClass({displayName: "Trip",
 	}
 });
 
-module.exports = Trip;
+module.exports = TripList;
 
-},{"react":159}],166:[function(require,module,exports){
+},{"react":159}],168:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
+var TripApi = require('../../api/tripApi');
+var TripList = require('./tripList');
 
-var Home = React.createClass({displayName: "Home",
-    render: function() {
-        return (
-            React.createElement("div", {className: "jumbotron"}, 
-                React.createElement("h1", null, " 'Explore the Freedom' "), 
-                React.createElement("p", null, " Start! ")
-            )
-        );
-    }
+var Trip = React.createClass({displayName: "Trip",
+	getInitialState: function() {
+		return {
+			trips: []
+		};
+	},
+
+	componentDidMount: function() {
+		if (this.isMounted()) {
+			this.setState({ trips: TripApi.getAllTrips() });
+		}
+	},
+
+	render: function() {
+		return (
+			React.createElement("div", null, 
+				React.createElement("h1", null, "Hot Trips"), 
+				React.createElement(TripList, {trips: this.state.trips})
+			)
+		);
+	}
 });
 
-module.exports = Home;
+module.exports = Trip;
 
-},{"react":159}],167:[function(require,module,exports){
+},{"../../api/tripApi":162,"./tripList":167,"react":159}],169:[function(require,module,exports){
 $ = jQuery = require('jquery');
 // var ReactDOM = require('react-dom');
 var React = require('react');
-var Home = require('./components/homePage');
 var Trip = require('./components/dashboard/tripPage');
 var Landing = require('./components/dashboard/landingPage');
 var Header = require('./components/common/header');
@@ -40829,7 +40912,6 @@ var Header = require('./components/common/header');
 
 			switch(this.props.route) {
 				case 'trip': Child = Trip; break;
-				case 'landing': Child = Landing; break;
 				default: Child = Landing;
 			}
 
@@ -40852,4 +40934,4 @@ var Header = require('./components/common/header');
 	render();
 })(window);
 
-},{"./components/common/header":162,"./components/dashboard/landingPage":164,"./components/dashboard/tripPage":165,"./components/homePage":166,"jquery":28,"react":159}]},{},[167]);
+},{"./components/common/header":164,"./components/dashboard/landingPage":166,"./components/dashboard/tripPage":168,"jquery":28,"react":159}]},{},[169]);
