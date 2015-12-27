@@ -22,9 +22,11 @@ var TripList = React.createClass({
 			<div>
 				<table className="table">
 					<thead>
-						<th>Id</th>
-						<th>Name</th>
-						<th>Length</th>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Length</th>
+                        </tr>
 					</thead>
 					<tbody>
 						{this.props.trips.map(createTripRow, this)}

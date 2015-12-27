@@ -4,7 +4,7 @@ var React = require('react');
 var LandingApi = require('../../api/landingApi');
 var LandingList = require('./landingList');
 
-var Landing = React.createClass({
+var LandingPage = React.createClass({
 	getInitialState: function() {
 		return {
 			landings: []
@@ -27,4 +27,4 @@ var Landing = React.createClass({
 	}
 });
 
-module.exports = Landing;
+module.exports = LandingPage;

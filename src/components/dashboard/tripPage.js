@@ -4,7 +4,7 @@ var React = require('react');
 var TripApi = require('../../api/tripApi');
 var TripList = require('./tripList');
 
-var Trip = React.createClass({
+var TripPage = React.createClass({
 	getInitialState: function() {
 		return {
 			trips: []
@@ -27,4 +27,4 @@ var Trip = React.createClass({
 	}
 });
 
-module.exports = Trip;
+module.exports = TripPage;

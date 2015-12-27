@@ -21,8 +21,10 @@ var LandingList = React.createClass({
 			<div>
 				<table className="table">
 					<thead>
-						<th>Id</th>
-						<th>Title</th>
+                        <tr>
+                            <th>Id</th>
+                            <th>Title</th>
+                        </tr>
 					</thead>
 					<tbody>
 						{this.props.landings.map(createLandingRow, this)}

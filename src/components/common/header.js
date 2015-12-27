@@ -1,6 +1,10 @@
 'use strict';
 
 var React = require('react');
+var ReactRouter = require('react-router');
+var Link = ReactRouter.Link;
+var IndexRoute = ReactRouter.IndexRoute;
+var IndexLink = ReactRouter.IndexLink;
 
 var Header = React.createClass({
 	render: function() {
@@ -11,8 +15,8 @@ var Header = React.createClass({
                 <img src="images/logos/viaRvLogo.svg" />
               </a>
               <ul className="nav navbar-nav">
-                <li><a href="/">Home</a></li>
-                <li><a href="/#trip">Trip</a></li>
+                <li><IndexLink to="/">Home</IndexLink></li>
+                <li><Link to="trip">Trip</Link></li>
               </ul>
           </div>
         </nav>
