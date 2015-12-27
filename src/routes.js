@@ -16,6 +16,7 @@ var Routes =  (
     <Route path="/" component={App}>
         <IndexRoute component={LandingPage}/>
         <Route path="trip" component={TripPage}/>
+        <Route path="*" component={NotFoundPage}/>
     </Route>
 );
 

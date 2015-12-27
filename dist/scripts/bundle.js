@@ -45336,6 +45336,7 @@ module.exports = TripPage;
 
 var React = require('react');
 var Link = require('react-router').Link;
+var LandingPage = require('./dashboard/landingPage')
 
 var NotFoundPage = React.createClass({displayName: "NotFoundPage",
 	render: function() {
@@ -45343,7 +45344,7 @@ var NotFoundPage = React.createClass({displayName: "NotFoundPage",
 			React.createElement("div", null, 
 				React.createElement("h1", null, "Page Not Found"), 
 				React.createElement("p", null, "Whoops! Sorry, there is nothing to see here."), 
-				React.createElement("p", null, React.createElement(Link, {to: "app"}, "Back to Home"))
+				React.createElement("p", null, React.createElement(Link, {to: LandingPage}, "Back to Home"))
 			)
 		);
 	}
@@ -45351,7 +45352,7 @@ var NotFoundPage = React.createClass({displayName: "NotFoundPage",
 
 module.exports = NotFoundPage;
 
-},{"react":334,"react-router":201}],348:[function(require,module,exports){
+},{"./dashboard/landingPage":344,"react":334,"react-router":201}],348:[function(require,module,exports){
 "use strict";
 
 var React = require('React');
@@ -45381,7 +45382,8 @@ var NotFoundPage = require('./components/notFoundPage')
 var Routes =  (
     React.createElement(Route, {path: "/", component: App}, 
         React.createElement(IndexRoute, {component: LandingPage}), 
-        React.createElement(Route, {path: "trip", component: TripPage})
+        React.createElement(Route, {path: "trip", component: TripPage}), 
+        React.createElement(Route, {path: "*", component: NotFoundPage})
     )
 );
 
