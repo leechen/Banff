@@ -45136,6 +45136,18 @@ module.exports = {
 };
 
 },{}],341:[function(require,module,exports){
+"use strict";
+
+var React = require('React');
+var ReactDOM = require('react-DOM');
+
+var ReactRouter = require('react-router');
+var Router = ReactRouter.Router;
+var Routes = require('./routes');
+
+ReactDOM.render(React.createElement(Router, null, Routes), document.getElementById('app'));
+
+},{"./routes":349,"React":129,"react-DOM":181,"react-router":201}],342:[function(require,module,exports){
 /* eslint-disable strict */
 
 var React = require('react');
@@ -45156,7 +45168,7 @@ var App = React.createClass({displayName: "App",
 
 module.exports = App
 
-},{"./common/header":342,"jquery":177,"react":334}],342:[function(require,module,exports){
+},{"./common/header":343,"jquery":177,"react":334}],343:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -45185,7 +45197,7 @@ var Header = React.createClass({displayName: "Header",
 
 module.exports = Header;
 
-},{"react":334,"react-router":201}],343:[function(require,module,exports){
+},{"react":334,"react-router":201}],344:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -45225,7 +45237,7 @@ var LandingList = React.createClass({displayName: "LandingList",
 
 module.exports = LandingList;
 
-},{"react":334}],344:[function(require,module,exports){
+},{"react":334}],345:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -45257,7 +45269,7 @@ var LandingPage = React.createClass({displayName: "LandingPage",
 
 module.exports = LandingPage;
 
-},{"../../api/landingApi":337,"./landingList":343,"react":334}],345:[function(require,module,exports){
+},{"../../api/landingApi":337,"./landingList":344,"react":334}],346:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -45299,7 +45311,7 @@ var TripList = React.createClass({displayName: "TripList",
 
 module.exports = TripList;
 
-},{"react":334}],346:[function(require,module,exports){
+},{"react":334}],347:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -45331,7 +45343,7 @@ var TripPage = React.createClass({displayName: "TripPage",
 
 module.exports = TripPage;
 
-},{"../../api/tripApi":339,"./tripList":345,"react":334}],347:[function(require,module,exports){
+},{"../../api/tripApi":339,"./tripList":346,"react":334}],348:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -45352,19 +45364,7 @@ var NotFoundPage = React.createClass({displayName: "NotFoundPage",
 
 module.exports = NotFoundPage;
 
-},{"./dashboard/landingPage":344,"react":334,"react-router":201}],348:[function(require,module,exports){
-"use strict";
-
-var React = require('React');
-var ReactDOM = require('react-DOM');
-
-var ReactRouter = require('react-router');
-var Router = ReactRouter.Router;
-var Routes = require('./routes');
-
-ReactDOM.render(React.createElement(Router, null, Routes), document.getElementById('app'));
-
-},{"./routes":349,"React":129,"react-DOM":181,"react-router":201}],349:[function(require,module,exports){
+},{"./dashboard/landingPage":345,"react":334,"react-router":201}],349:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -45389,4 +45389,4 @@ var Routes =  (
 
 module.exports = Routes;
 
-},{"./components/app":341,"./components/dashboard/landingPage":344,"./components/dashboard/tripPage":346,"./components/notFoundPage":347,"react":334,"react-router":201}]},{},[348]);
+},{"./components/app":342,"./components/dashboard/landingPage":345,"./components/dashboard/tripPage":347,"./components/notFoundPage":348,"react":334,"react-router":201}]},{},[341]);

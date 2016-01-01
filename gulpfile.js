@@ -8,6 +8,7 @@ var reactify = require('reactify'); // transform React JSX to js
 var source = require('vinyl-source-stream'); // use conventional text streams with Gulp
 var concat = require('gulp-concat'); // concatenates files
 var lint = require('gulp-eslint'); // lint js files, including JSX
+var nodemon = require('gulp-nodemon');
 
 var config = {
     port: 9005,
@@ -20,7 +21,7 @@ var config = {
             'node_modules/bootstrap/dist/css/bootstrap.min.css',
             'node_modules/bootstrap/dist/css/bootstrap-theme.min.css'    
         ],
-        mainJs: './src/main.js',
+        clientJs: './src/client.js',
         dist: './dist'
     }
 }
@@ -46,7 +47,7 @@ gulp.task('html', function(){
 });
 
 gulp.task('js', function(){
-    browserify(config.paths.mainJs)
+    browserify(config.paths.clientJs)
         .transform(reactify)
         .bundle()
         .on('error', console.error.bind(console))
@@ -79,6 +80,20 @@ gulp.task('lint', function(){
 gulp.task('watch', function(){
     gulp.watch(config.paths.html, ['html']);
     gulp.watch(config.paths.js, ['js', 'lint']);
-})
+});
 
-gulp.task('default', ['html', 'js', 'css', 'image', 'lint', 'open', 'watch']);
+gulp.task('server', function(){
+    nodemon({
+        script: 'server.js',
+        ext: 'js',
+        env: {
+            PORT:8082
+        },
+        ignore: ['./node_modules/**']
+    })
+    .on('restart', function(){
+        console.log('Restarting');
+    });
+});
+
+gulp.task('default', ['html', 'js', 'css', 'image', 'lint', 'open', 'watch', 'server']);
