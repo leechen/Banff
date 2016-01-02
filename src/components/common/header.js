@@ -17,7 +17,8 @@ var Header = React.createClass({
               <ul className="nav navbar-nav">
                 <li><IndexLink to="/">Home</IndexLink></li>
                 <li><Link to="trip">Trip</Link></li>
-                <li><Link to="User">User</Link></li>
+                <li><Link to="user">User</Link></li>
+                <li><Link to="newUser">Sign-up</Link></li>
               </ul>
           </div>
         </nav>

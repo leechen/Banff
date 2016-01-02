@@ -45164,7 +45164,7 @@ var UserApi = {
 
 module.exports = UserApi;
 
-},{"../helpers/restHelper":352,"lodash":178}],342:[function(require,module,exports){
+},{"../helpers/restHelper":353,"lodash":178}],342:[function(require,module,exports){
 "use strict";
 
 var React = require('React');
@@ -45176,90 +45176,7 @@ var Routes = require('./routes');
 
 ReactDOM.render(React.createElement(Router, null, Routes), document.getElementById('app'));
 
-},{"./routes":353,"React":129,"react-DOM":181,"react-router":201}],343:[function(require,module,exports){
-"use strict";
-
-var React = require('react');
-
-var UserList = React.createClass({displayName: "UserList",
-	propTypes: {
-		users: React.PropTypes.array.isRequired
-	},
-
-	render: function() {
-		var createUserRow = function(user) {
-			return (
-				React.createElement("tr", {key: user.id}, 
-					React.createElement("td", null, React.createElement("a", {href: "/#users/" + user.id}, user.id)), 
-					React.createElement("td", null, user.name), 
-					React.createElement("td", null, user.email)
-				)
-			);
-		};
-
-		return (
-			React.createElement("div", null, 
-				React.createElement("table", {className: "table"}, 
-					React.createElement("thead", null, 
-                        React.createElement("tr", null, 
-                            React.createElement("th", null, "Id"), 
-                            React.createElement("th", null, "Name"), 
-                            React.createElement("th", null, "Email")
-                        )
-					), 
-					React.createElement("tbody", null, 
-						this.props.users.map(createUserRow, this)
-					)
-				)
-			)
-		);
-	}
-});
-
-module.exports = UserList;
-
-},{"react":334}],344:[function(require,module,exports){
-'use strict';
-
-var React = require('react');
-var UserApi = require('../../api/userApi');
-var UserList = require('./userList');
-var Helper = require('../../helpers/restHelper');
-
-var UserPage = React.createClass({displayName: "UserPage",
-    getInitialState: function () {
-        return {
-            users: []
-        };
-    },
-
-    componentDidMount: function () {
-        if (this.isMounted()) {
-            var that = this;
-            
-            $.getJSON('http://localhost:9000/api/users')
-                .done(function (data) {
-                    that.setState({ users: data });
-                })
-                .fail(function () {
-                    $('body').append('<p>Oh no, something went wrong!</p>');
-                });
-        }
-    },
-
-    render: function () {
-        return (
-            React.createElement("div", null, 
-            React.createElement("h1", null, "User "), 
-            React.createElement(UserList, {users:  this.state.users})
-            )
-		);
-	}
-});
-
-module.exports = UserPage;
-
-},{"../../api/userApi":341,"../../helpers/restHelper":352,"./userList":343,"react":334}],345:[function(require,module,exports){
+},{"./routes":354,"React":129,"react-DOM":181,"react-router":201}],343:[function(require,module,exports){
 /* eslint-disable strict */
 
 var React = require('react');
@@ -45280,7 +45197,7 @@ var App = React.createClass({displayName: "App",
 
 module.exports = App
 
-},{"./common/header":346,"jquery":177,"react":334}],346:[function(require,module,exports){
+},{"./common/header":344,"jquery":177,"react":334}],344:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -45300,7 +45217,8 @@ var Header = React.createClass({displayName: "Header",
               React.createElement("ul", {className: "nav navbar-nav"}, 
                 React.createElement("li", null, React.createElement(IndexLink, {to: "/"}, "Home")), 
                 React.createElement("li", null, React.createElement(Link, {to: "trip"}, "Trip")), 
-                React.createElement("li", null, React.createElement(Link, {to: "User"}, "User"))
+                React.createElement("li", null, React.createElement(Link, {to: "user"}, "User")), 
+                React.createElement("li", null, React.createElement(Link, {to: "newUser"}, "Sign-up"))
               )
           )
         )
@@ -45310,7 +45228,7 @@ var Header = React.createClass({displayName: "Header",
 
 module.exports = Header;
 
-},{"react":334,"react-router":201}],347:[function(require,module,exports){
+},{"react":334,"react-router":201}],345:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -45350,7 +45268,7 @@ var LandingList = React.createClass({displayName: "LandingList",
 
 module.exports = LandingList;
 
-},{"react":334}],348:[function(require,module,exports){
+},{"react":334}],346:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -45382,7 +45300,7 @@ var LandingPage = React.createClass({displayName: "LandingPage",
 
 module.exports = LandingPage;
 
-},{"../../api/landingApi":337,"./landingList":347,"react":334}],349:[function(require,module,exports){
+},{"../../api/landingApi":337,"./landingList":345,"react":334}],347:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -45424,7 +45342,7 @@ var TripList = React.createClass({displayName: "TripList",
 
 module.exports = TripList;
 
-},{"react":334}],350:[function(require,module,exports){
+},{"react":334}],348:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -45456,7 +45374,7 @@ var TripPage = React.createClass({displayName: "TripPage",
 
 module.exports = TripPage;
 
-},{"../../api/tripApi":339,"./tripList":349,"react":334}],351:[function(require,module,exports){
+},{"../../api/tripApi":339,"./tripList":347,"react":334}],349:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -45477,7 +45395,128 @@ var NotFoundPage = React.createClass({displayName: "NotFoundPage",
 
 module.exports = NotFoundPage;
 
-},{"./dashboard/landingPage":348,"react":334,"react-router":201}],352:[function(require,module,exports){
+},{"./dashboard/landingPage":346,"react":334,"react-router":201}],350:[function(require,module,exports){
+'use strict';
+
+var React = require('react');
+var UserApi = require('../../api/userApi');
+
+var NewUserPage = React.createClass({displayName: "NewUserPage",
+//     getInitialState: function () {
+//         return {
+//             users: []
+//         };
+//     },
+// 
+//     componentDidMount: function () {
+//         if (this.isMounted()) {
+//             var that = this;
+//             
+//             $.getJSON('http://localhost:9000/api/users')
+//                 .done(function (data) {
+//                     that.setState({ users: data });
+//                 })
+//                 .fail(function () {
+//                     $('body').append('<p>Oh no, something went wrong!</p>');
+//                 });
+//         }
+//     },
+
+    render: function () {
+        return (
+            React.createElement("div", null, 
+            React.createElement("h1", null, "Creating new user ")
+            )
+		);
+	}
+});
+
+module.exports = NewUserPage;
+
+},{"../../api/userApi":341,"react":334}],351:[function(require,module,exports){
+"use strict";
+
+var React = require('react');
+
+var UserList = React.createClass({displayName: "UserList",
+	propTypes: {
+		users: React.PropTypes.array.isRequired
+	},
+
+	render: function() {
+		var createUserRow = function(user) {
+			return (
+				React.createElement("tr", {key: user.id}, 
+					React.createElement("td", null, React.createElement("a", {href: "/#users/" + user.id}, user.id)), 
+					React.createElement("td", null, user.name), 
+					React.createElement("td", null, user.email)
+				)
+			);
+		};
+
+		return (
+			React.createElement("div", null, 
+				React.createElement("table", {className: "table"}, 
+					React.createElement("thead", null, 
+                        React.createElement("tr", null, 
+                            React.createElement("th", null, "Id"), 
+                            React.createElement("th", null, "Name"), 
+                            React.createElement("th", null, "Email")
+                        )
+					), 
+					React.createElement("tbody", null, 
+						this.props.users.map(createUserRow, this)
+					)
+				)
+			)
+		);
+	}
+});
+
+module.exports = UserList;
+
+},{"react":334}],352:[function(require,module,exports){
+'use strict';
+
+var React = require('react');
+var UserApi = require('../../api/userApi');
+var UserList = require('./userList');
+var Helper = require('../../helpers/restHelper');
+
+var UserPage = React.createClass({displayName: "UserPage",
+    getInitialState: function () {
+        return {
+            users: []
+        };
+    },
+
+    componentDidMount: function () {
+        if (this.isMounted()) {
+            var that = this;
+            
+            $.getJSON('http://localhost:9000/api/users')
+                .done(function (data) {
+                    that.setState({ users: data });
+                })
+                .fail(function () {
+                    $('body').append('<p>Oh no, something went wrong!</p>');
+                });
+        }
+    },
+
+    render: function () {
+        return (
+            React.createElement("div", null, 
+            React.createElement("h1", null, "User "), 
+            React.createElement(UserList, {users:  this.state.users})
+            )
+		);
+	}
+});
+
+module.exports = UserPage;
+
+},{"../../api/userApi":341,"../../helpers/restHelper":353,"./userList":351,"react":334}],353:[function(require,module,exports){
 var $ = require('jquery');
 
 module.experts = {
@@ -45504,7 +45543,7 @@ module.experts = {
     }
 };
 
-},{"jquery":177}],353:[function(require,module,exports){
+},{"jquery":177}],354:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -45517,7 +45556,8 @@ var IndexRoute = ReactRouter.IndexRoute;
 var App = require('./components/app');
 var LandingPage = require('./components/dashboard/landingPage')
 var TripPage = require('./components/dashboard/tripPage')
-var UserPage = require('./components/admin/userPage')
+var UserPage = require('./components/users/userPage')
+var NewUserPage = require('./components/users/newUserPage')
 var NotFoundPage = require('./components/notFoundPage')
 
 var Routes =  (
@@ -45525,10 +45565,11 @@ var Routes =  (
         React.createElement(IndexRoute, {component: LandingPage}), 
         React.createElement(Route, {path: "trip", component: TripPage}), 
         React.createElement(Route, {path: "user", component: UserPage}), 
+        React.createElement(Route, {path: "newUser", component: NewUserPage}), 
         React.createElement(Route, {path: "*", component: NotFoundPage})
     )
 );
 
 module.exports = Routes;
 
-},{"./components/admin/userPage":344,"./components/app":345,"./components/dashboard/landingPage":348,"./components/dashboard/tripPage":350,"./components/notFoundPage":351,"react":334,"react-router":201}]},{},[342]);
+},{"./components/app":343,"./components/dashboard/landingPage":346,"./components/dashboard/tripPage":348,"./components/notFoundPage":349,"./components/users/newUserPage":350,"./components/users/userPage":352,"react":334,"react-router":201}]},{},[342]);
