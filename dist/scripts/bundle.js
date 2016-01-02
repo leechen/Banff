@@ -45138,6 +45138,35 @@ module.exports = {
 },{}],341:[function(require,module,exports){
 "use strict";
 
+//This file is mocking a web API by hitting hard coded data.
+var Helper = require('../helpers/restHelper');
+var _ = require('lodash');
+
+//This would be performed on the server in a real app. Just stubbing in.
+var _generateId = function(user) {
+	return user.email.toLowerCase();
+};
+
+var _clone = function(item) {
+	return JSON.parse(JSON.stringify(item)); //return cloned copy so that the item is passed by value instead of by reference
+};
+
+var UserApi = {
+	getAllUsers: function() {
+        return Helper.get("api/users"); 
+	},
+
+	getUserById: function(id) {
+		var user = _.find(users, {id: id});
+		return _clone(user);
+	},
+};
+
+module.exports = UserApi;
+
+},{"../helpers/restHelper":352,"lodash":178}],342:[function(require,module,exports){
+"use strict";
+
 var React = require('React');
 var ReactDOM = require('react-DOM');
 
@@ -45147,7 +45176,90 @@ var Routes = require('./routes');
 
 ReactDOM.render(React.createElement(Router, null, Routes), document.getElementById('app'));
 
-},{"./routes":349,"React":129,"react-DOM":181,"react-router":201}],342:[function(require,module,exports){
+},{"./routes":353,"React":129,"react-DOM":181,"react-router":201}],343:[function(require,module,exports){
+"use strict";
+
+var React = require('react');
+
+var UserList = React.createClass({displayName: "UserList",
+	propTypes: {
+		users: React.PropTypes.array.isRequired
+	},
+
+	render: function() {
+		var createUserRow = function(user) {
+			return (
+				React.createElement("tr", {key: user.id}, 
+					React.createElement("td", null, React.createElement("a", {href: "/#users/" + user.id}, user.id)), 
+					React.createElement("td", null, user.name), 
+					React.createElement("td", null, user.email)
+				)
+			);
+		};
+
+		return (
+			React.createElement("div", null, 
+				React.createElement("table", {className: "table"}, 
+					React.createElement("thead", null, 
+                        React.createElement("tr", null, 
+                            React.createElement("th", null, "Id"), 
+                            React.createElement("th", null, "Name"), 
+                            React.createElement("th", null, "Email")
+                        )
+					), 
+					React.createElement("tbody", null, 
+						this.props.users.map(createUserRow, this)
+					)
+				)
+			)
+		);
+	}
+});
+
+module.exports = UserList;
+
+},{"react":334}],344:[function(require,module,exports){
+'use strict';
+
+var React = require('react');
+var UserApi = require('../../api/userApi');
+var UserList = require('./userList');
+var Helper = require('../../helpers/restHelper');
+
+var UserPage = React.createClass({displayName: "UserPage",
+    getInitialState: function () {
+        return {
+            users: []
+        };
+    },
+
+    componentDidMount: function () {
+        if (this.isMounted()) {
+            var that = this;
+            
+            $.getJSON('http://localhost:9000/api/users')
+                .done(function (data) {
+                    that.setState({ users: data });
+                })
+                .fail(function () {
+                    $('body').append('<p>Oh no, something went wrong!</p>');
+                });
+        }
+    },
+
+    render: function () {
+        return (
+            React.createElement("div", null, 
+            React.createElement("h1", null, "User "), 
+            React.createElement(UserList, {users:  this.state.users})
+            )
+		);
+	}
+});
+
+module.exports = UserPage;
+
+},{"../../api/userApi":341,"../../helpers/restHelper":352,"./userList":343,"react":334}],345:[function(require,module,exports){
 /* eslint-disable strict */
 
 var React = require('react');
@@ -45168,7 +45280,7 @@ var App = React.createClass({displayName: "App",
 
 module.exports = App
 
-},{"./common/header":343,"jquery":177,"react":334}],343:[function(require,module,exports){
+},{"./common/header":346,"jquery":177,"react":334}],346:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -45187,7 +45299,8 @@ var Header = React.createClass({displayName: "Header",
               ), 
               React.createElement("ul", {className: "nav navbar-nav"}, 
                 React.createElement("li", null, React.createElement(IndexLink, {to: "/"}, "Home")), 
-                React.createElement("li", null, React.createElement(Link, {to: "trip"}, "Trip"))
+                React.createElement("li", null, React.createElement(Link, {to: "trip"}, "Trip")), 
+                React.createElement("li", null, React.createElement(Link, {to: "User"}, "User"))
               )
           )
         )
@@ -45197,7 +45310,7 @@ var Header = React.createClass({displayName: "Header",
 
 module.exports = Header;
 
-},{"react":334,"react-router":201}],344:[function(require,module,exports){
+},{"react":334,"react-router":201}],347:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -45237,7 +45350,7 @@ var LandingList = React.createClass({displayName: "LandingList",
 
 module.exports = LandingList;
 
-},{"react":334}],345:[function(require,module,exports){
+},{"react":334}],348:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -45269,7 +45382,7 @@ var LandingPage = React.createClass({displayName: "LandingPage",
 
 module.exports = LandingPage;
 
-},{"../../api/landingApi":337,"./landingList":344,"react":334}],346:[function(require,module,exports){
+},{"../../api/landingApi":337,"./landingList":347,"react":334}],349:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -45311,7 +45424,7 @@ var TripList = React.createClass({displayName: "TripList",
 
 module.exports = TripList;
 
-},{"react":334}],347:[function(require,module,exports){
+},{"react":334}],350:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -45343,7 +45456,7 @@ var TripPage = React.createClass({displayName: "TripPage",
 
 module.exports = TripPage;
 
-},{"../../api/tripApi":339,"./tripList":346,"react":334}],348:[function(require,module,exports){
+},{"../../api/tripApi":339,"./tripList":349,"react":334}],351:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -45364,7 +45477,34 @@ var NotFoundPage = React.createClass({displayName: "NotFoundPage",
 
 module.exports = NotFoundPage;
 
-},{"./dashboard/landingPage":345,"react":334,"react-router":201}],349:[function(require,module,exports){
+},{"./dashboard/landingPage":348,"react":334,"react-router":201}],352:[function(require,module,exports){
+var $ = require('jquery');
+
+module.experts = {
+    get:function(url){
+        return new Promise(function(success,error){
+            $.ajax({
+                url:url,
+                dataType:"json",
+                success:success,
+                error:error
+            });
+        });
+    },
+    post:function(url,data){
+        return new Promise(function(success,error){
+            $.ajax({
+                url:url,
+                type:"POST",
+                data:data,
+                success:success,
+                error:error
+            });
+        });
+    }
+};
+
+},{"jquery":177}],353:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -45377,16 +45517,18 @@ var IndexRoute = ReactRouter.IndexRoute;
 var App = require('./components/app');
 var LandingPage = require('./components/dashboard/landingPage')
 var TripPage = require('./components/dashboard/tripPage')
+var UserPage = require('./components/admin/userPage')
 var NotFoundPage = require('./components/notFoundPage')
 
 var Routes =  (
     React.createElement(Route, {path: "/", component: App}, 
         React.createElement(IndexRoute, {component: LandingPage}), 
         React.createElement(Route, {path: "trip", component: TripPage}), 
+        React.createElement(Route, {path: "user", component: UserPage}), 
         React.createElement(Route, {path: "*", component: NotFoundPage})
     )
 );
 
 module.exports = Routes;
 
-},{"./components/app":342,"./components/dashboard/landingPage":345,"./components/dashboard/tripPage":347,"./components/notFoundPage":348,"react":334,"react-router":201}]},{},[341]);
+},{"./components/admin/userPage":344,"./components/app":345,"./components/dashboard/landingPage":348,"./components/dashboard/tripPage":350,"./components/notFoundPage":351,"react":334,"react-router":201}]},{},[342]);

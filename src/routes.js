@@ -10,12 +10,14 @@ var IndexRoute = ReactRouter.IndexRoute;
 var App = require('./components/app');
 var LandingPage = require('./components/dashboard/landingPage')
 var TripPage = require('./components/dashboard/tripPage')
+var UserPage = require('./components/admin/userPage')
 var NotFoundPage = require('./components/notFoundPage')
 
 var Routes =  (
     <Route path="/" component={App}>
         <IndexRoute component={LandingPage}/>
         <Route path="trip" component={TripPage}/>
+        <Route path="user" component={UserPage}/>
         <Route path="*" component={NotFoundPage}/>
     </Route>
 );
