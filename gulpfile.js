@@ -84,7 +84,7 @@ gulp.task('watch', function(){
 
 gulp.task('server', function(){
     nodemon({
-        script: 'server.js',
+        script: './src/server/main.js',
         ext: 'js',
         env: {
             PORT:9000

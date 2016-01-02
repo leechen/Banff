@@ -14,4 +14,4 @@ Server.listen(port, function (err) {
     console.log('server running on port ' + port);
 });
 
-require('./src/server/users.js')(Server);
+require('./users.js')(Server);
