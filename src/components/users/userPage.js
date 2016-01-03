@@ -4,6 +4,7 @@ var React = require('react');
 var UserApi = require('../../api/userApi');
 var UserList = require('./userList');
 var Helper = require('../../helpers/restHelper');
+var config = require('../../../config');
 
 var UserPage = React.createClass({
     getInitialState: function () {
@@ -16,7 +17,7 @@ var UserPage = React.createClass({
         if (this.isMounted()) {
             var that = this;
             
-            $.getJSON('http://localhost:9000/api/users')
+            $.getJSON(config.apiUrl + 'users')
                 .done(function (data) {
                     that.setState({ users: data });
                 })

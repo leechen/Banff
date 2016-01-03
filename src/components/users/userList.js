@@ -24,7 +24,7 @@ var UserList = React.createClass({
 					<thead>
                         <tr>
                             <th>Id</th>
-                            <th>firstName</th>
+                            <th>First Name</th>
                             <th>Email</th>
                         </tr>
 					</thead>
