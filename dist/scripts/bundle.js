@@ -45580,8 +45580,8 @@ module.exports = {
 },{}],343:[function(require,module,exports){
 "use strict";
 
-//This file is mocking a web API by hitting hard coded data.
 var Helper = require('../helpers/restHelper');
+var config = require('../../config');
 var _ = require('lodash');
 
 //This would be performed on the server in a real app. Just stubbing in.
@@ -45594,19 +45594,29 @@ var _clone = function(item) {
 };
 
 var UserApi = {
-	getAllUsers: function() {
-        return Helper.get("api/users"); 
-	},
+    getAllUsers: function(){
+        return $.getJSON(config.apiUrl + 'users');
+    },
 
 	getUserById: function(id) {
 		var user = _.find(users, {id: id});
 		return _clone(user);
 	},
+    
+    saveUser: function(user) {
+        // $.ajax({
+        //         url:config.apiUrl + 'users',
+        //         type:"POST",
+        //         data:user
+        //     });
+        
+        Helper.post(config.apiUrl + 'users', user);
+	},
 };
 
 module.exports = UserApi;
 
-},{"../helpers/restHelper":357,"lodash":179}],344:[function(require,module,exports){
+},{"../../config":1,"../helpers/restHelper":357,"lodash":179}],344:[function(require,module,exports){
 "use strict";
 
 var React = require('React');
@@ -46038,6 +46048,7 @@ var UserApi = require('../../api/userApi');
 var UserList = require('./userList');
 var Helper = require('../../helpers/restHelper');
 var config = require('../../../config');
+var toastr = require('toastr');
 
 var UserPage = React.createClass({displayName: "UserPage",
     getInitialState: function () {
@@ -46055,7 +46066,7 @@ var UserPage = React.createClass({displayName: "UserPage",
                     that.setState({ users: data });
                 })
                 .fail(function () {
-                    $('body').append('<p>Oh no, something went wrong!</p>');
+                    toastr.fail('Oh no, something went wrong!');
                 });
         }
     },
@@ -46072,7 +46083,7 @@ var UserPage = React.createClass({displayName: "UserPage",
 
 module.exports = UserPage;
 
-},{"../../../config":1,"../../api/userApi":343,"../../helpers/restHelper":357,"./userList":355,"react":335}],357:[function(require,module,exports){
+},{"../../../config":1,"../../api/userApi":343,"../../helpers/restHelper":357,"./userList":355,"react":335,"toastr":337}],357:[function(require,module,exports){
 var $ = require('jquery');
 
 module.experts = {
@@ -46083,9 +46094,10 @@ module.experts = {
                 dataType:"json",
                 success:success,
                 error:error
-            });
-        });
+            })
+        })
     },
+    
     post:function(url,data){
         return new Promise(function(success,error){
             $.ajax({
@@ -46094,8 +46106,8 @@ module.experts = {
                 data:data,
                 success:success,
                 error:error
-            });
-        });
+            })
+        })
     }
 };
 

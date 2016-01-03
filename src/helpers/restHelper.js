@@ -8,9 +8,10 @@ module.experts = {
                 dataType:"json",
                 success:success,
                 error:error
-            });
-        });
+            })
+        })
     },
+    
     post:function(url,data){
         return new Promise(function(success,error){
             $.ajax({
@@ -19,7 +20,7 @@ module.experts = {
                 data:data,
                 success:success,
                 error:error
-            });
-        });
+            })
+        })
     }
 };

@@ -5,6 +5,7 @@ var UserApi = require('../../api/userApi');
 var UserList = require('./userList');
 var Helper = require('../../helpers/restHelper');
 var config = require('../../../config');
+var toastr = require('toastr');
 
 var UserPage = React.createClass({
     getInitialState: function () {
@@ -22,7 +23,7 @@ var UserPage = React.createClass({
                     that.setState({ users: data });
                 })
                 .fail(function () {
-                    $('body').append('<p>Oh no, something went wrong!</p>');
+                    toastr.fail('Oh no, something went wrong!');
                 });
         }
     },

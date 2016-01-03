@@ -1,7 +1,7 @@
 "use strict";
 
-//This file is mocking a web API by hitting hard coded data.
 var Helper = require('../helpers/restHelper');
+var config = require('../../config');
 var _ = require('lodash');
 
 //This would be performed on the server in a real app. Just stubbing in.
@@ -14,13 +14,23 @@ var _clone = function(item) {
 };
 
 var UserApi = {
-	getAllUsers: function() {
-        return Helper.get("api/users"); 
-	},
+    getAllUsers: function(){
+        return $.getJSON(config.apiUrl + 'users');
+    },
 
 	getUserById: function(id) {
 		var user = _.find(users, {id: id});
 		return _clone(user);
+	},
+    
+    saveUser: function(user) {
+        // $.ajax({
+        //         url:config.apiUrl + 'users',
+        //         type:"POST",
+        //         data:user
+        //     });
+        
+        Helper.post(config.apiUrl + 'users', user);
 	},
 };
 
