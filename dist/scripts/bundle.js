@@ -45164,7 +45164,7 @@ var UserApi = {
 
 module.exports = UserApi;
 
-},{"../helpers/restHelper":353,"lodash":178}],342:[function(require,module,exports){
+},{"../helpers/restHelper":354,"lodash":178}],342:[function(require,module,exports){
 "use strict";
 
 var React = require('React');
@@ -45176,7 +45176,7 @@ var Routes = require('./routes');
 
 ReactDOM.render(React.createElement(Router, null, Routes), document.getElementById('app'));
 
-},{"./routes":354,"React":129,"react-DOM":181,"react-router":201}],343:[function(require,module,exports){
+},{"./routes":355,"React":129,"react-DOM":181,"react-router":201}],343:[function(require,module,exports){
 /* eslint-disable strict */
 
 var React = require('react');
@@ -45399,41 +45399,85 @@ module.exports = NotFoundPage;
 'use strict';
 
 var React = require('react');
-var UserApi = require('../../api/userApi');
+var UserForm = require('./userForm');
 
 var NewUserPage = React.createClass({displayName: "NewUserPage",
-//     getInitialState: function () {
-//         return {
-//             users: []
-//         };
-//     },
-// 
-//     componentDidMount: function () {
-//         if (this.isMounted()) {
-//             var that = this;
-//             
-//             $.getJSON('http://localhost:9000/api/users')
-//                 .done(function (data) {
-//                     that.setState({ users: data });
-//                 })
-//                 .fail(function () {
-//                     $('body').append('<p>Oh no, something went wrong!</p>');
-//                 });
-//         }
-//     },
+    getInitialState: function () {
+        return {
+            user: {
+                id: '',
+                firstName: '',
+                lastName: '',
+                email: '',
+                password: ''
+            },
+        };
+    },
+    
+	setUserState: function(event) {
+		this.setState({dirty: true});
+		var field = event.target.name;
+		var value = event.target.value;
+		this.state.user[field] = value;
+		return this.setState({user: this.state.user});
+	},
 
     render: function () {
         return (
-            React.createElement("div", null, 
-            React.createElement("h1", null, "Creating new user ")
-            )
+            React.createElement(UserForm, {
+                user: this.state.user, 
+                onChange: this.setUserState}
+             )
 		);
 	}
 });
 
 module.exports = NewUserPage;
 
-},{"../../api/userApi":341,"react":334}],351:[function(require,module,exports){
+},{"./userForm":351,"react":334}],351:[function(require,module,exports){
+'use strict';
+
+var React = require('react');
+var UserApi = require('../../api/userApi');
+
+var UserForm = React.createClass({displayName: "UserForm",
+    render: function () {
+        return (
+			React.createElement("form", null, 
+				React.createElement("h1", null, "Welcome "), 
+				React.createElement("input", {
+					placeholder: "first name", 
+					label: "First Name", 
+					value: this.props.user.firstName, 
+					onChange: this.props.onChange}), 
+
+				React.createElement("input", {
+					placeholder: "last name", 
+					label: "Last Name", 
+					value: this.props.user.lastName, 
+					onChange: this.props.onChange}), 
+
+				React.createElement("input", {
+					placeholder: "email", 
+					label: "Email", 
+					value: this.props.user.email, 
+					onChange: this.props.onChange}), 
+
+				React.createElement("input", {
+					placeholder: "password", 
+					label: "Password", 
+					value: this.props.user.password, 
+					onChange: this.props.onChange}), 
+                    
+				React.createElement("input", {type: "submit", value: "Save", className: "btn btn-default", onClick: this.props.onSave})
+			)
+		);
+	}
+});
+
+module.exports = UserForm;
+
+},{"../../api/userApi":341,"react":334}],352:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -45475,7 +45519,7 @@ var UserList = React.createClass({displayName: "UserList",
 
 module.exports = UserList;
 
-},{"react":334}],352:[function(require,module,exports){
+},{"react":334}],353:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -45516,7 +45560,7 @@ var UserPage = React.createClass({displayName: "UserPage",
 
 module.exports = UserPage;
 
-},{"../../api/userApi":341,"../../helpers/restHelper":353,"./userList":351,"react":334}],353:[function(require,module,exports){
+},{"../../api/userApi":341,"../../helpers/restHelper":354,"./userList":352,"react":334}],354:[function(require,module,exports){
 var $ = require('jquery');
 
 module.experts = {
@@ -45543,7 +45587,7 @@ module.experts = {
     }
 };
 
-},{"jquery":177}],354:[function(require,module,exports){
+},{"jquery":177}],355:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -45572,4 +45616,4 @@ var Routes =  (
 
 module.exports = Routes;
 
-},{"./components/app":343,"./components/dashboard/landingPage":346,"./components/dashboard/tripPage":348,"./components/notFoundPage":349,"./components/users/newUserPage":350,"./components/users/userPage":352,"react":334,"react-router":201}]},{},[342]);
+},{"./components/app":343,"./components/dashboard/landingPage":346,"./components/dashboard/tripPage":348,"./components/notFoundPage":349,"./components/users/newUserPage":350,"./components/users/userPage":353,"react":334,"react-router":201}]},{},[342]);
