@@ -12,7 +12,7 @@ var UserList = React.createClass({
 			return (
 				<tr key={user.id}>
 					<td><a href={"/#users/" + user.id}>{user.id}</a></td>
-					<td>{user.name}</td>
+					<td>{user.firstName}</td>
 					<td>{user.email}</td>                    
 				</tr>
 			);
@@ -24,7 +24,7 @@ var UserList = React.createClass({
 					<thead>
                         <tr>
                             <th>Id</th>
-                            <th>Name</th>
+                            <th>firstName</th>
                             <th>Email</th>
                         </tr>
 					</thead>

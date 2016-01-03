@@ -3,19 +3,27 @@ module.exports = function (app) {
         [
             {
                 id: '1',
-                name: 'Utah Kevin'
+                firstName: 'Kevin',
+                lastName: "Utah",
+                email: "UtahKevin@a.com"
             },
             {
                 id: '2',
-                name: 'Wild Dan'
+                firstName: 'Dan',
+                lastName: "Wild",
+                email: "dan@a.com"
             },
             {
                 id: '3',
-                name: 'Desert Jose',
+                firstName: 'Jose',
+                lastName: "Desert",
+                email: "Jose@a.com"
             },
             {
                 id: '4',
-                name: 'Sky Pacific'
+                firstName: 'Pacific',
+                lastName: "Sky",
+                email: "pacific@a.com"
             }
         ];
 

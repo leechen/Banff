@@ -2,6 +2,7 @@
 
 var React = require('react');
 var UserForm = require('./userForm');
+var toastr = require('toastr');
 
 var NewUserPage = React.createClass({
     getInitialState: function () {
@@ -25,13 +26,31 @@ var NewUserPage = React.createClass({
 		this.state.user[field] = value;
 		return this.setState({user: this.state.user});
 	},
+    
+	saveUser: function(event) {
+		event.preventDefault();
 
+		// if (!this.userFormIsValid()) {
+		// 	return;
+		// }
+
+		// if (this.state.user.id) {
+		// 	UserActions.updateUser(this.state.user);
+		// } else {
+		// 	UserActions.createUser(this.state.user);
+		// }
+		
+		this.setState({dirty: false});
+		toastr.success('User saved.');
+		//this.transitionTo('users');
+	},
+    
     render: function () {
         return (
             < UserForm 
                 user={this.state.user}
                 onChange={this.setUserState}
-                //onSave={this.saveAuthor}
+                onSave={this.saveUser}
 				errors={this.state.errors}
              />
 		);
