@@ -13,6 +13,8 @@ var NewUserPage = React.createClass({
                 email: '',
                 password: ''
             },
+            errors: {},
+			dirty: false
         };
     },
     
@@ -29,6 +31,8 @@ var NewUserPage = React.createClass({
             < UserForm 
                 user={this.state.user}
                 onChange={this.setUserState}
+                //onSave={this.saveAuthor}
+				errors={this.state.errors}
              />
 		);
 	}

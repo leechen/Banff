@@ -45164,7 +45164,7 @@ var UserApi = {
 
 module.exports = UserApi;
 
-},{"../helpers/restHelper":354,"lodash":178}],342:[function(require,module,exports){
+},{"../helpers/restHelper":355,"lodash":178}],342:[function(require,module,exports){
 "use strict";
 
 var React = require('React');
@@ -45176,7 +45176,7 @@ var Routes = require('./routes');
 
 ReactDOM.render(React.createElement(Router, null, Routes), document.getElementById('app'));
 
-},{"./routes":355,"React":129,"react-DOM":181,"react-router":201}],343:[function(require,module,exports){
+},{"./routes":356,"React":129,"react-DOM":181,"react-router":201}],343:[function(require,module,exports){
 /* eslint-disable strict */
 
 var React = require('react');
@@ -45233,6 +45233,47 @@ module.exports = Header;
 
 var React = require('react');
 
+var TextInput = React.createClass({displayName: "TextInput",
+  propTypes: {
+    name: React.PropTypes.string.isRequired,
+    label: React.PropTypes.string.isRequired,
+    onChange: React.PropTypes.func.isRequired,
+    placeholder: React.PropTypes.string,
+    value: React.PropTypes.string,
+    error: React.PropTypes.string
+  },
+
+  render: function () {
+    var wrapperClass = 'form-group';
+    if (this.props.error && this.props.error.length > 0) {
+      wrapperClass += " " + 'has-error';
+    }
+    
+    return (
+     React.createElement("div", {className: wrapperClass}, 
+        React.createElement("label", {htmlFor: this.props.name}, this.props.label), 
+        React.createElement("div", {className: "field"}, 
+          React.createElement("input", {type: "text", 
+            name: this.props.name, 
+            className: "form-control", 
+            placeholder: this.props.placeholder, 
+            ref: this.props.name, 
+            value: this.props.value, 
+            onChange: this.props.onChange}), 
+          React.createElement("div", {className: "input"}, this.props.error)
+        )
+      )
+    );
+  }
+});
+
+module.exports = TextInput;
+
+},{"react":334}],346:[function(require,module,exports){
+"use strict";
+
+var React = require('react');
+
 var LandingList = React.createClass({displayName: "LandingList",
 	propTypes: {
 		landings: React.PropTypes.array.isRequired
@@ -45268,7 +45309,7 @@ var LandingList = React.createClass({displayName: "LandingList",
 
 module.exports = LandingList;
 
-},{"react":334}],346:[function(require,module,exports){
+},{"react":334}],347:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -45300,7 +45341,7 @@ var LandingPage = React.createClass({displayName: "LandingPage",
 
 module.exports = LandingPage;
 
-},{"../../api/landingApi":337,"./landingList":345,"react":334}],347:[function(require,module,exports){
+},{"../../api/landingApi":337,"./landingList":346,"react":334}],348:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -45342,7 +45383,7 @@ var TripList = React.createClass({displayName: "TripList",
 
 module.exports = TripList;
 
-},{"react":334}],348:[function(require,module,exports){
+},{"react":334}],349:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -45374,7 +45415,7 @@ var TripPage = React.createClass({displayName: "TripPage",
 
 module.exports = TripPage;
 
-},{"../../api/tripApi":339,"./tripList":347,"react":334}],349:[function(require,module,exports){
+},{"../../api/tripApi":339,"./tripList":348,"react":334}],350:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -45395,7 +45436,7 @@ var NotFoundPage = React.createClass({displayName: "NotFoundPage",
 
 module.exports = NotFoundPage;
 
-},{"./dashboard/landingPage":346,"react":334,"react-router":201}],350:[function(require,module,exports){
+},{"./dashboard/landingPage":347,"react":334,"react-router":201}],351:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -45411,6 +45452,8 @@ var NewUserPage = React.createClass({displayName: "NewUserPage",
                 email: '',
                 password: ''
             },
+            errors: {},
+			dirty: false
         };
     },
     
@@ -45426,7 +45469,9 @@ var NewUserPage = React.createClass({displayName: "NewUserPage",
         return (
             React.createElement(UserForm, {
                 user: this.state.user, 
-                onChange: this.setUserState}
+                onChange: this.setUserState, 
+                //onSave={this.saveAuthor}
+				errors: this.state.errors}
              )
 		);
 	}
@@ -45434,40 +45479,45 @@ var NewUserPage = React.createClass({displayName: "NewUserPage",
 
 module.exports = NewUserPage;
 
-},{"./userForm":351,"react":334}],351:[function(require,module,exports){
+},{"./userForm":352,"react":334}],352:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
 var UserApi = require('../../api/userApi');
+var TextInput = require('../common/textInput');
 
 var UserForm = React.createClass({displayName: "UserForm",
     render: function () {
         return (
 			React.createElement("form", null, 
 				React.createElement("h1", null, "Welcome "), 
-				React.createElement("input", {
-					placeholder: "first name", 
+				React.createElement(TextInput, {
+					name: "firstName", 
 					label: "First Name", 
 					value: this.props.user.firstName, 
-					onChange: this.props.onChange}), 
+					onChange: this.props.onChange, 
+                    error: this.props.errors.firstName}), 
 
-				React.createElement("input", {
-					placeholder: "last name", 
+				React.createElement(TextInput, {
+					name: "lastName", 
 					label: "Last Name", 
 					value: this.props.user.lastName, 
-					onChange: this.props.onChange}), 
+					onChange: this.props.onChange, 
+                    error: this.props.errors.lastName}), 
 
-				React.createElement("input", {
-					placeholder: "email", 
+				React.createElement(TextInput, {
+					name: "email", 
 					label: "Email", 
 					value: this.props.user.email, 
-					onChange: this.props.onChange}), 
+					onChange: this.props.onChange, 
+                    error: this.props.errors.email}), 
 
-				React.createElement("input", {
-					placeholder: "password", 
+				React.createElement(TextInput, {
+					name: "password", 
 					label: "Password", 
 					value: this.props.user.password, 
-					onChange: this.props.onChange}), 
+					onChange: this.props.onChange, 
+                    error: this.props.errors.password}), 
                     
 				React.createElement("input", {type: "submit", value: "Save", className: "btn btn-default", onClick: this.props.onSave})
 			)
@@ -45477,7 +45527,7 @@ var UserForm = React.createClass({displayName: "UserForm",
 
 module.exports = UserForm;
 
-},{"../../api/userApi":341,"react":334}],352:[function(require,module,exports){
+},{"../../api/userApi":341,"../common/textInput":345,"react":334}],353:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -45519,7 +45569,7 @@ var UserList = React.createClass({displayName: "UserList",
 
 module.exports = UserList;
 
-},{"react":334}],353:[function(require,module,exports){
+},{"react":334}],354:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -45560,7 +45610,7 @@ var UserPage = React.createClass({displayName: "UserPage",
 
 module.exports = UserPage;
 
-},{"../../api/userApi":341,"../../helpers/restHelper":354,"./userList":352,"react":334}],354:[function(require,module,exports){
+},{"../../api/userApi":341,"../../helpers/restHelper":355,"./userList":353,"react":334}],355:[function(require,module,exports){
 var $ = require('jquery');
 
 module.experts = {
@@ -45587,7 +45637,7 @@ module.experts = {
     }
 };
 
-},{"jquery":177}],355:[function(require,module,exports){
+},{"jquery":177}],356:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -45616,4 +45666,4 @@ var Routes =  (
 
 module.exports = Routes;
 
-},{"./components/app":343,"./components/dashboard/landingPage":346,"./components/dashboard/tripPage":348,"./components/notFoundPage":349,"./components/users/newUserPage":350,"./components/users/userPage":353,"react":334,"react-router":201}]},{},[342]);
+},{"./components/app":343,"./components/dashboard/landingPage":347,"./components/dashboard/tripPage":349,"./components/notFoundPage":350,"./components/users/newUserPage":351,"./components/users/userPage":354,"react":334,"react-router":201}]},{},[342]);
