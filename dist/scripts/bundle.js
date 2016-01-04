@@ -45624,11 +45624,11 @@ var ReactDOM = require('react-DOM');
 
 var ReactRouter = require('react-router');
 var Router = ReactRouter.Router;
-var Routes = require('./routes');
+var Routes = require('./routes.jsx');
 
 ReactDOM.render(React.createElement(Router, null, Routes), document.getElementById('app'));
 
-},{"./routes":358,"React":130,"react-DOM":182,"react-router":202}],345:[function(require,module,exports){
+},{"./routes.jsx":358,"React":130,"react-DOM":182,"react-router":202}],345:[function(require,module,exports){
 /* eslint-disable strict */
 
 var React = require('react');
@@ -46169,7 +46169,7 @@ var Router = ReactRouter.Router;
 var Route = ReactRouter.Route;
 var IndexRoute = ReactRouter.IndexRoute;
 
-var App = require('./components/app');
+var App = require('./components/app.jsx');
 var LandingPage = require('./components/dashboard/landingPage.jsx')
 var TripPage = require('./components/dashboard/tripPage.jsx')
 var UserPage = require('./components/users/userPage.jsx')
@@ -46188,4 +46188,4 @@ var Routes =  (
 
 module.exports = Routes;
 
-},{"./components/app":345,"./components/dashboard/landingPage.jsx":349,"./components/dashboard/tripPage.jsx":351,"./components/notFoundPage.jsx":352,"./components/users/newUserPage.jsx":353,"./components/users/userPage.jsx":356,"react":335,"react-router":202}]},{},[344]);
+},{"./components/app.jsx":345,"./components/dashboard/landingPage.jsx":349,"./components/dashboard/tripPage.jsx":351,"./components/notFoundPage.jsx":352,"./components/users/newUserPage.jsx":353,"./components/users/userPage.jsx":356,"react":335,"react-router":202}]},{},[344]);

@@ -7,7 +7,7 @@ var Router = ReactRouter.Router;
 var Route = ReactRouter.Route;
 var IndexRoute = ReactRouter.IndexRoute;
 
-var App = require('./components/app');
+var App = require('./components/app.jsx');
 var LandingPage = require('./components/dashboard/landingPage.jsx')
 var TripPage = require('./components/dashboard/tripPage.jsx')
 var UserPage = require('./components/users/userPage.jsx')

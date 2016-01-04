@@ -5,7 +5,7 @@ var ReactDOM = require('react-DOM');
 
 var ReactRouter = require('react-router');
 var Router = ReactRouter.Router;
-var Routes = require('./routes');
+var Routes = require('./routes.jsx');
 
 ReactDOM.render(<Router>{Routes}</Router>, document.getElementById('app'));
 
