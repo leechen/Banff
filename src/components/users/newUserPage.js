@@ -34,12 +34,25 @@ var NewUserPage = React.createClass({
 		return this.setState({user: this.state.user});
 	},
     
+    userFormIsValid: function() {
+        var formIsValid = true;
+        this.state.errors = {};
+        
+        if (this.state.user.firstName.length < 3){
+            this.state.errors.firstName = 'First name must be at least 3 charactoers';
+            formIsValid = false;
+        }
+        
+        this.setState({errors: this.state.errors});
+		return formIsValid;
+    },
+    
 	saveUser: function(event) {
 		event.preventDefault();
 
-		// if (!this.userFormIsValid()) {
-		// 	return;
-		// }    
+		if (!this.userFormIsValid()) {
+			return;
+		}    
         
         var user = this.state.user;
         var that = this;
