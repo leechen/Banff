@@ -2,7 +2,7 @@
 
 var React = require('react');
 var Link = require('react-router').Link;
-var LandingPage = require('./dashboard/landingPage')
+var LandingPage = require('./dashboard/landingPage.jsx')
 
 var NotFoundPage = React.createClass({
 	render: function() {

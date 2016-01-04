@@ -2,7 +2,7 @@
 
 var React = require('react');
 var LandingApi = require('../../api/landingApi');
-var LandingList = require('./landingList');
+var LandingList = require('./landingList.jsx');
 
 var LandingPage = React.createClass({
 	getInitialState: function() {

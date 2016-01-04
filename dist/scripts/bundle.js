@@ -45766,7 +45766,7 @@ module.exports = LandingList;
 
 var React = require('react');
 var LandingApi = require('../../api/landingApi');
-var LandingList = require('./landingList');
+var LandingList = require('./landingList.jsx');
 
 var LandingPage = React.createClass({displayName: "LandingPage",
 	getInitialState: function() {
@@ -45793,7 +45793,7 @@ var LandingPage = React.createClass({displayName: "LandingPage",
 
 module.exports = LandingPage;
 
-},{"../../api/landingApi":339,"./landingList":348,"react":335}],350:[function(require,module,exports){
+},{"../../api/landingApi":339,"./landingList.jsx":348,"react":335}],350:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -45840,7 +45840,7 @@ module.exports = TripList;
 
 var React = require('react');
 var TripApi = require('../../api/tripApi');
-var TripList = require('./tripList');
+var TripList = require('./tripList.jsx');
 
 var TripPage = React.createClass({displayName: "TripPage",
 	getInitialState: function() {
@@ -45867,12 +45867,12 @@ var TripPage = React.createClass({displayName: "TripPage",
 
 module.exports = TripPage;
 
-},{"../../api/tripApi":341,"./tripList":350,"react":335}],352:[function(require,module,exports){
+},{"../../api/tripApi":341,"./tripList.jsx":350,"react":335}],352:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
 var Link = require('react-router').Link;
-var LandingPage = require('./dashboard/landingPage')
+var LandingPage = require('./dashboard/landingPage.jsx')
 
 var NotFoundPage = React.createClass({displayName: "NotFoundPage",
 	render: function() {
@@ -45888,7 +45888,7 @@ var NotFoundPage = React.createClass({displayName: "NotFoundPage",
 
 module.exports = NotFoundPage;
 
-},{"./dashboard/landingPage":349,"react":335,"react-router":202}],353:[function(require,module,exports){
+},{"./dashboard/landingPage.jsx":349,"react":335,"react-router":202}],353:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -46170,11 +46170,11 @@ var Route = ReactRouter.Route;
 var IndexRoute = ReactRouter.IndexRoute;
 
 var App = require('./components/app');
-var LandingPage = require('./components/dashboard/landingPage')
-var TripPage = require('./components/dashboard/tripPage')
+var LandingPage = require('./components/dashboard/landingPage.jsx')
+var TripPage = require('./components/dashboard/tripPage.jsx')
 var UserPage = require('./components/users/userPage.jsx')
 var NewUserPage = require('./components/users/newUserPage.jsx')
-var NotFoundPage = require('./components/notFoundPage')
+var NotFoundPage = require('./components/notFoundPage.jsx')
 
 var Routes =  (
     React.createElement(Route, {path: "/", component: App}, 
@@ -46188,4 +46188,4 @@ var Routes =  (
 
 module.exports = Routes;
 
-},{"./components/app":345,"./components/dashboard/landingPage":349,"./components/dashboard/tripPage":351,"./components/notFoundPage":352,"./components/users/newUserPage.jsx":353,"./components/users/userPage.jsx":356,"react":335,"react-router":202}]},{},[344]);
+},{"./components/app":345,"./components/dashboard/landingPage.jsx":349,"./components/dashboard/tripPage.jsx":351,"./components/notFoundPage.jsx":352,"./components/users/newUserPage.jsx":353,"./components/users/userPage.jsx":356,"react":335,"react-router":202}]},{},[344]);

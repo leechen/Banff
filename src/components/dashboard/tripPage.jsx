@@ -2,7 +2,7 @@
 
 var React = require('react');
 var TripApi = require('../../api/tripApi');
-var TripList = require('./tripList');
+var TripList = require('./tripList.jsx');
 
 var TripPage = React.createClass({
 	getInitialState: function() {
