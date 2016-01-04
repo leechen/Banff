@@ -45893,10 +45893,16 @@ module.exports = NotFoundPage;
 
 var React = require('react');
 var UserForm = require('./userForm');
+var Router = require('react-router');
 var toastr = require('toastr');
 var config = require('../../../config');
 
+
 var NewUserPage = React.createClass({displayName: "NewUserPage",
+    mixins: [
+        Router.Navigation
+    ],
+    
     getInitialState: function () {
         return {
             user: {
@@ -45931,13 +45937,15 @@ var NewUserPage = React.createClass({displayName: "NewUserPage",
         
         $.ajax({
             url: config.apiUrl + "users",
+            data: user,
             type: 'post',
             dataType: 'json',
-            success: function (data) {
+            success: function(data) { 
                 that.setState({dirty: false});
                 toastr.success('User saved.');
+                that.transitionTo('users')
             },
-            data: user
+            failure: function(errMsg) { alert(errMsg); }
         });
 	},
     
@@ -45955,7 +45963,7 @@ var NewUserPage = React.createClass({displayName: "NewUserPage",
 
 module.exports = NewUserPage;
 
-},{"../../../config":1,"./userForm":354,"react":335,"toastr":337}],354:[function(require,module,exports){
+},{"../../../config":1,"./userForm":354,"react":335,"react-router":202,"toastr":337}],354:[function(require,module,exports){
 'use strict';
 
 var React = require('react');

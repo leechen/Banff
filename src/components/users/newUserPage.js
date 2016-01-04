@@ -2,10 +2,16 @@
 
 var React = require('react');
 var UserForm = require('./userForm');
+var Router = require('react-router');
 var toastr = require('toastr');
 var config = require('../../../config');
 
+
 var NewUserPage = React.createClass({
+    mixins: [
+        Router.Navigation
+    ],
+    
     getInitialState: function () {
         return {
             user: {
@@ -40,13 +46,15 @@ var NewUserPage = React.createClass({
         
         $.ajax({
             url: config.apiUrl + "users",
+            data: user,
             type: 'post',
             dataType: 'json',
-            success: function (data) {
+            success: function(data) { 
                 that.setState({dirty: false});
                 toastr.success('User saved.');
+                that.transitionTo('users')
             },
-            data: user
+            failure: function(errMsg) { alert(errMsg); }
         });
 	},
     
