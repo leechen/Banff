@@ -12,6 +12,14 @@ var NewUserPage = React.createClass({
         Router.Navigation
     ],
     
+    statics: {
+        willTransitionFrom: function (transition, component) {
+            if (component.state.dirty && !confirm('Leave without saving?')) {
+                transition.abort();
+            }
+        }
+    },
+    
     getInitialState: function () {
         return {
             user: {
