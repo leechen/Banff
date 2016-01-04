@@ -45632,7 +45632,7 @@ ReactDOM.render(React.createElement(Router, null, Routes), document.getElementBy
 /* eslint-disable strict */
 
 var React = require('react');
-var Header = require('./common/header');
+var Header = require('./common/header.jsx');
 
 $ = jQuery = require('jquery');
 
@@ -45649,7 +45649,7 @@ var App = React.createClass({displayName: "App",
 
 module.exports = App
 
-},{"./common/header":346,"jquery":178,"react":335}],346:[function(require,module,exports){
+},{"./common/header.jsx":346,"jquery":178,"react":335}],346:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -45989,7 +45989,7 @@ module.exports = NewUserPage;
 
 var React = require('react');
 var UserApi = require('../../api/userApi');
-var TextInput = require('../common/textInput');
+var TextInput = require('../common/textInput.jsx');
 
 var UserForm = React.createClass({displayName: "UserForm",
     	propTypes: {
@@ -46046,7 +46046,7 @@ var UserForm = React.createClass({displayName: "UserForm",
 
 module.exports = UserForm;
 
-},{"../../api/userApi":343,"../common/textInput":347,"react":335}],355:[function(require,module,exports){
+},{"../../api/userApi":343,"../common/textInput.jsx":347,"react":335}],355:[function(require,module,exports){
 "use strict";
 
 var React = require('react');

@@ -2,7 +2,7 @@
 
 var React = require('react');
 var UserApi = require('../../api/userApi');
-var TextInput = require('../common/textInput');
+var TextInput = require('../common/textInput.jsx');
 
 var UserForm = React.createClass({
     	propTypes: {
