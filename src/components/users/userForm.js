@@ -5,6 +5,13 @@ var UserApi = require('../../api/userApi');
 var TextInput = require('../common/textInput');
 
 var UserForm = React.createClass({
+    	propTypes: {
+		user:	React.PropTypes.object.isRequired,
+		onSave:	React.PropTypes.func.isRequired,
+		onChange: React.PropTypes.func.isRequired,
+		errors: React.PropTypes.object
+	},
+    
     render: function () {
         return (
 			<form>
