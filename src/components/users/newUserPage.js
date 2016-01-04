@@ -3,6 +3,7 @@
 var React = require('react');
 var UserForm = require('./userForm');
 var toastr = require('toastr');
+var config = require('../../../config');
 
 var NewUserPage = React.createClass({
     getInitialState: function () {
@@ -32,17 +33,21 @@ var NewUserPage = React.createClass({
 
 		// if (!this.userFormIsValid()) {
 		// 	return;
-		// }
-
-		// if (this.state.user.id) {
-		// 	UserActions.updateUser(this.state.user);
-		// } else {
-		// 	UserActions.createUser(this.state.user);
-		// }
-		
-		this.setState({dirty: false});
-		toastr.success('User saved.');
-		//this.transitionTo('users');
+		// }    
+        
+        var user = this.state.user;
+        var that = this;
+        
+        $.ajax({
+            url: config.apiUrl + "users",
+            type: 'post',
+            dataType: 'json',
+            success: function (data) {
+                that.setState({dirty: false});
+                toastr.success('User saved.');
+            },
+            data: user
+        });
 	},
     
     render: function () {

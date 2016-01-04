@@ -9,7 +9,14 @@ var UserForm = React.createClass({
         return (
 			<form>
 				<h1>Welcome </h1>
+
 				<TextInput
+					name="id"
+					label="Id"
+					value={this.props.user.id}
+					onChange={this.props.onChange}
+                    error={this.props.errors.id} />
+                <TextInput
 					name="firstName"
 					label="First Name"
 					value={this.props.user.firstName}

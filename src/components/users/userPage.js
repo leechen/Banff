@@ -23,7 +23,7 @@ var UserPage = React.createClass({
                     that.setState({ users: data });
                 })
                 .fail(function () {
-                    toastr.fail('Oh no, something went wrong!');
+                    toastr.error('Oh no, something went wrong!');
                 });
         }
     },

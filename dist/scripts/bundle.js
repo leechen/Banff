@@ -45894,6 +45894,7 @@ module.exports = NotFoundPage;
 var React = require('react');
 var UserForm = require('./userForm');
 var toastr = require('toastr');
+var config = require('../../../config');
 
 var NewUserPage = React.createClass({displayName: "NewUserPage",
     getInitialState: function () {
@@ -45923,17 +45924,21 @@ var NewUserPage = React.createClass({displayName: "NewUserPage",
 
 		// if (!this.userFormIsValid()) {
 		// 	return;
-		// }
-
-		// if (this.state.user.id) {
-		// 	UserActions.updateUser(this.state.user);
-		// } else {
-		// 	UserActions.createUser(this.state.user);
-		// }
-		
-		this.setState({dirty: false});
-		toastr.success('User saved.');
-		//this.transitionTo('users');
+		// }    
+        
+        var user = this.state.user;
+        var that = this;
+        
+        $.ajax({
+            url: config.apiUrl + "users",
+            type: 'post',
+            dataType: 'json',
+            success: function (data) {
+                that.setState({dirty: false});
+                toastr.success('User saved.');
+            },
+            data: user
+        });
 	},
     
     render: function () {
@@ -45950,7 +45955,7 @@ var NewUserPage = React.createClass({displayName: "NewUserPage",
 
 module.exports = NewUserPage;
 
-},{"./userForm":354,"react":335,"toastr":337}],354:[function(require,module,exports){
+},{"../../../config":1,"./userForm":354,"react":335,"toastr":337}],354:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -45962,7 +45967,14 @@ var UserForm = React.createClass({displayName: "UserForm",
         return (
 			React.createElement("form", null, 
 				React.createElement("h1", null, "Welcome "), 
+
 				React.createElement(TextInput, {
+					name: "id", 
+					label: "Id", 
+					value: this.props.user.id, 
+					onChange: this.props.onChange, 
+                    error: this.props.errors.id}), 
+                React.createElement(TextInput, {
 					name: "firstName", 
 					label: "First Name", 
 					value: this.props.user.firstName, 
@@ -46066,7 +46078,7 @@ var UserPage = React.createClass({displayName: "UserPage",
                     that.setState({ users: data });
                 })
                 .fail(function () {
-                    toastr.fail('Oh no, something went wrong!');
+                    toastr.error('Oh no, something went wrong!');
                 });
         }
     },
