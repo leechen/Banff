@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react');
-var UserForm = require('./userForm');
+var UserForm = require('./userForm.jsx');
 var Router = require('react-router');
 var toastr = require('toastr');
 var config = require('../../../config');

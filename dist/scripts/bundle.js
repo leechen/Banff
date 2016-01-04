@@ -45892,7 +45892,7 @@ module.exports = NotFoundPage;
 'use strict';
 
 var React = require('react');
-var UserForm = require('./userForm');
+var UserForm = require('./userForm.jsx');
 var Router = require('react-router');
 var toastr = require('toastr');
 var config = require('../../../config');
@@ -45984,7 +45984,7 @@ var NewUserPage = React.createClass({displayName: "NewUserPage",
 
 module.exports = NewUserPage;
 
-},{"../../../config":1,"./userForm":354,"react":335,"react-router":202,"toastr":337}],354:[function(require,module,exports){
+},{"../../../config":1,"./userForm.jsx":354,"react":335,"react-router":202,"toastr":337}],354:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -46093,7 +46093,7 @@ module.exports = UserList;
 
 var React = require('react');
 var UserApi = require('../../api/userApi');
-var UserList = require('./userList');
+var UserList = require('./userList.jsx');
 var Helper = require('../../helpers/restHelper');
 var config = require('../../../config');
 var toastr = require('toastr');
@@ -46131,7 +46131,7 @@ var UserPage = React.createClass({displayName: "UserPage",
 
 module.exports = UserPage;
 
-},{"../../../config":1,"../../api/userApi":343,"../../helpers/restHelper":357,"./userList":355,"react":335,"toastr":337}],357:[function(require,module,exports){
+},{"../../../config":1,"../../api/userApi":343,"../../helpers/restHelper":357,"./userList.jsx":355,"react":335,"toastr":337}],357:[function(require,module,exports){
 var $ = require('jquery');
 
 module.experts = {
@@ -46172,8 +46172,8 @@ var IndexRoute = ReactRouter.IndexRoute;
 var App = require('./components/app');
 var LandingPage = require('./components/dashboard/landingPage')
 var TripPage = require('./components/dashboard/tripPage')
-var UserPage = require('./components/users/userPage')
-var NewUserPage = require('./components/users/newUserPage')
+var UserPage = require('./components/users/userPage.jsx')
+var NewUserPage = require('./components/users/newUserPage.jsx')
 var NotFoundPage = require('./components/notFoundPage')
 
 var Routes =  (
@@ -46188,4 +46188,4 @@ var Routes =  (
 
 module.exports = Routes;
 
-},{"./components/app":345,"./components/dashboard/landingPage":349,"./components/dashboard/tripPage":351,"./components/notFoundPage":352,"./components/users/newUserPage":353,"./components/users/userPage":356,"react":335,"react-router":202}]},{},[344]);
+},{"./components/app":345,"./components/dashboard/landingPage":349,"./components/dashboard/tripPage":351,"./components/notFoundPage":352,"./components/users/newUserPage.jsx":353,"./components/users/userPage.jsx":356,"react":335,"react-router":202}]},{},[344]);

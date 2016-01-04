@@ -2,7 +2,7 @@
 
 var React = require('react');
 var UserApi = require('../../api/userApi');
-var UserList = require('./userList');
+var UserList = require('./userList.jsx');
 var Helper = require('../../helpers/restHelper');
 var config = require('../../../config');
 var toastr = require('toastr');
